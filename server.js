@@ -2,6 +2,7 @@
 
 const Hapi = require('hapi')
 const path = require('path')
+const validateCard = require('./validateCard')
 
 const server = Hapi.server({
   port: process.env.PORT || 3000,
@@ -17,9 +18,17 @@ const init = async () => {
   await server.register(require('inert'))
 
   server.route([{
-    method: ['GET', 'POST'],
+    method: 'GET',
     path: '/',
     handler: (request, h) => h.file('index.html')
+  }, {
+    method: 'POST',
+    path: '/',
+    handler: (request, h) => {
+      const { card } = request.payload
+      if (validateCard(card)) return 'Yay!'// h.file('index.html') /* provide happy case */
+      else return 'Bummer!'// h.file('index.html') /* provide unhappy case */
+    }
   }])
 
   await server.start()
