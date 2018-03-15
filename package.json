@@ -1,10 +1,14 @@
 {
-  "name": "luhn-app",
+  "name": "luhnar-landscapes",
   "version": "1.0.0",
-  "description": "",
+  "description": "Credit card number verification app",
   "main": "server.js",
+  "engines": {
+    "node" : ">= 8.0"
+  },
   "scripts": {
-    "test": "NODE_ENV=test node node_modules/lab/bin/lab -v -C -c -t 85"
+    "start": "node server.js",
+    "test": "NODE_ENV=test node node_modules/lab/bin/lab -v -C -c -t 90"
   },
   "keywords": [],
   "author": "Alex Revell <revellalex@gmail.com>",
