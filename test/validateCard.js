@@ -9,7 +9,6 @@ const lab         = exports.lab = Lab.script()
 // use some BDD verbage instead of lab default
 const describe    = lab.describe
 const it          = lab.it
-const after       = lab.after
 
 // require hapi server
 const validateCard = require('../validateCard.js')

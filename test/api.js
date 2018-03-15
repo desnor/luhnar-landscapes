@@ -9,7 +9,6 @@ const lab         = exports.lab = Lab.script()
 // use some BDD verbage instead of lab default
 const describe    = lab.describe
 const it          = lab.it
-const after       = lab.after
 
 // require hapi server
 const Server = require('../server.js')
@@ -50,15 +49,5 @@ describe('testing API', () => {
 
     expect(response.statusCode).to.equal(200)
     expect(response.result).to.match(/Card number is invalid/)
-  })
-
-  it('should return error for invalid id', async () => {
-
-    const response = await Server.inject({
-      method: 'GET',
-      url: '/api/products/5'
-    })
-
-    expect(response.statusCode).to.equal(404)
   })
 })
