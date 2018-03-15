@@ -2,14 +2,14 @@
 
 module.exports = function validateCard(cardNumber) {
   const nums = cardNumber.split('').reverse().map(Number)
-  const all = []
+  let all = []
 
   for (const [index, n] of nums.entries()) {
     if (index % 2 !== 0) all.push(doubleAndPrepare(n))
     else all.push(n)
   }
 
-  const total = all.reduce(sum)
+  const total = all.reduce(sum, 0)
 
   return total % 10 === 0
 }

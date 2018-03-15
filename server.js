@@ -16,18 +16,31 @@ const server = Hapi.server({
 
 const init = async () => {
   await server.register(require('inert'))
+  await server.register(require('vision'))
+
+  server.views({
+    engines: {
+      html: require('handlebars')
+    },
+    relativeTo: __dirname,
+    path: 'templates',
+    layout: true,
+    layoutPath: 'templates/layout',
+    partialsPath: 'templates/partials',
+    helpersPath: 'templates/helpers',
+  })
 
   server.route([{
     method: 'GET',
     path: '/',
-    handler: (request, h) => h.file('index.html')
+    handler: (request, h) => h.view('index', { state: 'unknown' })
   }, {
     method: 'POST',
     path: '/',
     handler: (request, h) => {
       const { card } = request.payload
-      if (validateCard(card)) return 'Yay!'// h.file('index.html') /* provide happy case */
-      else return 'Bummer!'// h.file('index.html') /* provide unhappy case */
+
+      return h.view('index', { state: !!card && validateCard(card) ? 'valid' : 'invalid' })
     }
   }])
 
@@ -42,3 +55,5 @@ process.on('unhandledRejection', (err) => {
 })
 
 init()
+
+module.exports = server
